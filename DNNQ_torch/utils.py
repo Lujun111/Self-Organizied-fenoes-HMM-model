@@ -19,16 +19,19 @@ def get_data_label(label_path,data_path):
     count = 0
     #############################################################################################
     files_label = os.listdir(label_path)
+    #read the label from the directory
     for item in files_label:
         f = kaldiio.load_ark(label_path + '/' + item )
         for key, value in f:
             label_data[key] = value
+    #read the featrues and load into hash, make it faster for searching
     for key, value in data_path:
         feature_39d[key] = value
     #############################################################################################
+    #make two list to save the features and label, remove the key.
     for data_key, data_value in feature_39d.items():
         data_label = label_data[data_key]
-        if np.shape(data_value)[0] == np.shape(data_label)[0]:
+        if np.shape(data_value)[0] == np.shape(data_label)[0]:#save only the data, which is clean.
             for i in range(np.shape(data_value)[0]):
                 #print(np.shape(data_value)[0])
                 data_vector = data_value[i]
@@ -36,12 +39,12 @@ def get_data_label(label_path,data_path):
                 label_vector = data_label[i]
                 label_list.append(int(label_vector))
         else:
-            count+=1
+            count+=1#count the dirty key
     return label_list,data_list
-
+#not used
 def to_categorical(y,num_classes):
     return np.eye(num_classes,dtype='uint8')
-                
+#dataloader, copy from the template             
 class compset(Dataset):
     def __init__(self,data_list,label_list):
         self.data_list = data_list
