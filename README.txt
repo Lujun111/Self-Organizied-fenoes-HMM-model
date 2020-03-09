@@ -11,3 +11,8 @@ Problem we have now:
 2. After length-equalization, we will put every frame vector into a DNN to get a probability and multiply them together, But some phones like SIL have a lot of sequence e.g 11000+, so after multiplcation, the number will be extremely small.
 3. Some phone like SIL have a lot of sequence but some phone don't show very frequent and some phone don't even show in the dataset. How to solve this question?
 
+Progree Report on 28.2.2020
+work has been done:
+extract the average frame length and most frequent frame length. see in the average_frame.txt and frequent_frame.txt.
+Also extract the vector corresponding to the two files and make is easier to while testing the singleton HMM model.
+
